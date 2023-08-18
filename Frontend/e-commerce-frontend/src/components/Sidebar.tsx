@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React from 'react';
+import items from '@/data/sidebarData';
+import SideBarComponent from './SidebarComponent';
 
 interface SidebarProps {
   className?: string;
@@ -7,36 +8,13 @@ interface SidebarProps {
 
 export default function Sidebar({ className }: SidebarProps) {
 
-    const items = [
-      {
-        name: 'Home',
-        href: '/',
-      },
-      {
-        name: 'About',
-        href: '/about',
-      },
-      {
-        name: 'Blog',
-        href: '/blog',
-      },
-      {
-        name: 'Contact',
-        href: '/contact',
-      },
-    ];
+    
   
     return (
       <nav className={className} >
         <ul>
           {items.map((item) => (
-            <li key={item.name}>
-              <Link
-                href={item.href}
-              >
-                {item.name}
-              </Link>
-            </li>
+            <SideBarComponent params={{item}} />
           ))}
         </ul>
       </nav>
