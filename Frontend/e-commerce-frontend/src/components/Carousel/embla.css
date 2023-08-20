@@ -1,7 +1,7 @@
 .embla {
-    --slide-spacing: 1rem;
+    --slide-spacing: 0.6rem;
     --slide-size: 100%;
-    --slide-height: 19rem;
+    /* --slide-height: 19rem; */
     padding: 1.6rem;
   }
   .embla__viewport {
