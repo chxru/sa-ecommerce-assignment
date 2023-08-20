@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google';
 import Nav from '@/components/Nav';
 import Sidebar from '@/components/Sidebar';
+import {Providers} from "./providers";
 const poppin = Poppins({
   weight: ['100', '400'],
   subsets: ['latin'],
@@ -20,15 +21,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className='dark'>
       <body className="bg-gray-100">
+        <Providers>
         <div className="flex flex-col h-screen overflow-hidden">
-          <Nav className="bg-blue-500 sticky top-0 z-10" />
-          <div className="flex flex-1 overflow-y-auto">
-            <Sidebar className="w-1/4 bg-gray-300 overflow-y-auto" />
+          <Nav/>
+          <div className="flex flex-1 overflow-y-auto p-5">
+            <Sidebar/>
             <main className="w-3/4 p-4">{children}</main>
           </div>
         </div>
+        </Providers>
       </body>
     </html>
   );

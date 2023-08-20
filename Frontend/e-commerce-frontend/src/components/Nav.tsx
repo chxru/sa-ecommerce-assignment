@@ -1,6 +1,4 @@
 'use client'
-
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import UserBox from '@/components/Userbox';
 import Logo from './Logo';
@@ -8,28 +6,14 @@ import Logo from './Logo';
 import links from '@/data/Navlinks';
 import user from '@/data/userData';
 import colors from '@/data/NavbarColors';
+import {Button} from "@nextui-org/react";
 
 export default function Nav() {
-
-
-  const [currentColorIndex, setCurrentColorIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentColorIndex((prevIndex) =>
-        (prevIndex + 1) % colors.length
-      );
-    }, 5000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
 
   return (
     <>
       <div
-        className={`w-full h-20 ${colors[currentColorIndex]} sticky top-0 transition duration-1000 ease-in-out`}
+        className={`w-full h-20 bg-emerald-800 sticky top-0 transition duration-1000 ease-in-out bg-blue-500 sticky top-0 z-10`}
       >
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
@@ -42,7 +26,9 @@ export default function Nav() {
                   <Link href={link.to}>
                     {/* Add hover:underline class for underline effect */}
                     <div className="text-white-700 hover:text-gray-900 hover:underline">
-                      {link.label}
+                      <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
+                        {link.label}
+                    </Button>  
                     </div>
                   </Link>
                 </li>
