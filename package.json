@@ -1,0 +1,20 @@
+{
+  "name": "saecom",
+  "version": "0.0.1",
+  "description": "software architecture assignment",
+  "repository": "https://github.com/chxru/sa-ecommerce-assignment",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "be",
+    "fe",
+    "types"
+  ],
+  "scripts": {
+    "dev:be": "yarn --cwd ./be/ start:dev",
+    "dev:fe": "yarn --cwd ./fe/ dev"
+  },
+  "devDependencies": {
+    "prettier": "2.8.8"
+  }
+}
