@@ -1,8 +1,11 @@
 "use client";
 
+import { useUserStore } from "@/store/user.store";
 import { Fetcher } from "@/util/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FunctionComponent } from "react";
+import { AuthResponse } from "@saecom/types";
+import { useRouter } from "next/navigation";
+import { FunctionComponent, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
@@ -14,9 +17,21 @@ const schema = z.object({
 type LoginForm = z.infer<typeof schema>;
 
 const LoginPage: FunctionComponent = () => {
+  const [loading, setLoading] = useState(true);
+  const store = useUserStore();
   const { register, handleSubmit } = useForm<LoginForm>({
     resolver: zodResolver(schema),
   });
+  const router = useRouter();
+
+  useEffect(() => {
+    // redirect to home page if user is already logged in
+    if (!loading && store.access_token) {
+      router.push("/");
+    }
+
+    setLoading(false);
+  }, [loading, store.access_token]);
 
   const HandleSubmit: SubmitHandler<LoginForm> = async (data) => {
     const dto = {
@@ -25,16 +40,49 @@ const LoginPage: FunctionComponent = () => {
     };
 
     try {
-      const res = await Fetcher.post("/auth/login", dto);
-      console.log(res);
+      const res = await Fetcher.post<AuthResponse>("/auth/login", dto);
+      if (res.status !== 200) {
+        throw new Error("Invalid response");
+      }
+
+      const { access_token, display_name } = res.data;
+
+      // validate values
+      if (!access_token || !display_name) {
+        throw new Error("Invalid response");
+      }
+
+      store.updateUser({ username: display_name });
+      store.updateToken(access_token);
+
+      // redirection is handled in useEffect
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
       }
 
-      console.log(error);
+      // if error is an object with message property
+      if (error && typeof error === "object" && "message" in error) {
+        console.error(error.message);
+        return;
+      }
+
+      // if error is an array of objects with message property
+      if (
+        error &&
+        Array.isArray(error) &&
+        error.every((item) => typeof item === "object" && "message" in item)
+      ) {
+        console.error(error.map((item) => item.message).join("\n"));
+      } else {
+        console.error(error);
+      }
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">

@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { IJwtPayload } from '@saecom/types';
+import { AuthResponse, IJwtPayload } from '@saecom/types';
 import { compare, hash } from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
 import { RegisterDto, SignInDto } from './auth.dto';
@@ -29,11 +29,12 @@ export class AuthService {
       email: user.email,
     };
 
-    return {
+    const res: AuthResponse = {
       access_token: this.jwtService.sign(payload),
-      id: user._id,
-      email: user.email,
+      display_name: user.name,
     };
+
+    return res;
   }
 
   async signIn(data: SignInDto) {
@@ -54,10 +55,11 @@ export class AuthService {
       email: user.email,
     };
 
-    return {
+    const res: AuthResponse = {
       access_token: this.jwtService.sign(payload),
-      id: user._id,
-      email: user.email,
+      display_name: user.name,
     };
+
+    return res;
   }
 }
