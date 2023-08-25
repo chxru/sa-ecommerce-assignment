@@ -2,6 +2,7 @@ import AuthLayout from "@/components/layouts/auth.layout";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Topbar from "@/components/navbar.component";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthLayout>{children}</AuthLayout>
+        <AuthLayout>
+          <Topbar />
+          {children}
+        </AuthLayout>
       </body>
     </html>
   );
