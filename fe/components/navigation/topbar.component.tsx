@@ -1,8 +1,6 @@
 "use client";
 
-import { useUserStore } from "@/store/user.store";
 import { Button, Dropdown, Navbar } from "flowbite-react";
-import { useRouter } from "next/navigation";
 import { FunctionComponent, useState } from "react";
 import {
   HiCog,
@@ -13,15 +11,18 @@ import {
 } from "react-icons/hi";
 import SearchBar from "./searchbar.component";
 
-const Topbar: FunctionComponent = () => {
+interface TopbarProps {
+  username?: string;
+  onLogin: () => void;
+  onSignOut: () => void;
+}
+
+const Topbar: FunctionComponent<TopbarProps> = (props) => {
   const [showSearch, setShowSearch] = useState(false);
 
-  const router = useRouter();
-  const userStore = useUserStore();
-
   return (
-    <>
-      <Navbar fluid rounded className="absolute w-screen z-50 bg-white">
+    <div className="w-screen absolute">
+      <Navbar fluid rounded className=" max-w-6xl w-full mx-auto z-50 bg-white">
         <Navbar.Brand href="/">
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             SAECOM
@@ -46,15 +47,15 @@ const Topbar: FunctionComponent = () => {
               <p>(0)</p>
             </Button>
 
-            {userStore.user ? (
-              <Dropdown label={"Hey " + userStore.user.username}>
+            {props.username ? (
+              <Dropdown label={"Hey " + props.username}>
                 <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
                 <Dropdown.Item icon={HiCog}>Settings</Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item
                   icon={HiLogout}
                   onClick={() => {
-                    userStore.signOut();
+                    props.onSignOut();
                   }}
                 >
                   Sign out
@@ -63,7 +64,7 @@ const Topbar: FunctionComponent = () => {
             ) : (
               <Button
                 onClick={() => {
-                  router.push("/login");
+                  props.onLogin();
                 }}
               >
                 Login
@@ -76,7 +77,7 @@ const Topbar: FunctionComponent = () => {
       <span className="flex md:hidden mt-16 absolute w-full justify-center">
         {showSearch && <SearchBar />}
       </span>
-    </>
+    </div>
   );
 };
 

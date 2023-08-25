@@ -5,6 +5,7 @@
 - [Next.js](https://nextjs.org/)
 - [Nest.js](https://nestjs.com)
 - [MongoDB](https://mongodb.com/)
+- [Storybook](https://storybook.js.org/)
 
 ## Getting Started
 
@@ -24,6 +25,12 @@ yarn dev:fe
 yarn dev:be
 ```
 
+5. Start the storybook server.
+
+```bash
+yarn sb
+```
+
 ### Directory Structure
 
 Project is configured using yarn v1 workspaces.
@@ -34,6 +41,12 @@ Project is configured using yarn v1 workspaces.
 │   ├── package.json
 │   ├── backend related nest.js files
 │__ fe
+|   ├── .storybook # storybook config
+|   ├── app # next.js app directory
+|   ├── components # shared components
+|   ├── public # public files
+|   ├── stories # generated while configuring storybook, can be deleted
+|   |__ utils # shared utils
 │   ├── package.json
 │   ├── frontend related next.js files
 |__ types
