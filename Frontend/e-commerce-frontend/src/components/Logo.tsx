@@ -3,10 +3,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import SigninButton from "./SigninButton";
-import LogoImg from '@/../../public/logo.svg';
+import LogoImg from "@/../../public/logo.svg";
 
 export default function Logo() {
-      //update the size of the logo when the size of the screen changes
+  //update the size of the logo when the size of the screen changes
   const [width, setWidth] = useState(0);
 
   const updateWidth = () => {
@@ -33,22 +33,24 @@ export default function Logo() {
   useEffect(() => {
     window.addEventListener("scroll", changeNavButton);
   }, []);
-    return (
-        <>
-        <Link href="/" style={{ display: showButton ? "none" : "block" }}>
-          <Image src={LogoImg} alt="logo"
-            width={width < 1024 ? "50" : "60"}
-            height={width < 1024 ? "50" : "60"}
-            className="relative"
-          />
-        </Link>
-        <div
-          style={{
-            display: showButton ? "block" : "none",
-          }}
-        >
-          <SigninButton />
-        </div>
-      </>
-    );
+  return (
+    <>
+      <Link href="/" style={{ display: showButton ? "none" : "block" }}>
+        <Image
+          src={LogoImg}
+          alt="logo"
+          width={width < 1024 ? "50" : "60"}
+          height={width < 1024 ? "50" : "60"}
+          className="relative"
+        />
+      </Link>
+      <div
+        style={{
+          display: showButton ? "block" : "none",
+        }}
+      >
+        <SigninButton />
+      </div>
+    </>
+  );
 }

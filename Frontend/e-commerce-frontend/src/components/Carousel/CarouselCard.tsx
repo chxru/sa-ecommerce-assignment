@@ -1,6 +1,6 @@
 import React from "react";
-import {Card, CardBody, Image, Button, Progress} from "@nextui-org/react";
-import {HeartIcon} from "./HeartIcon";
+import { Card, CardBody, Image, Button, Progress } from "@nextui-org/react";
+import { HeartIcon } from "./HeartIcon";
 
 export default function App() {
   const [liked, setLiked] = React.useState(false);
@@ -29,7 +29,9 @@ export default function App() {
               <div className="flex flex-col gap-0">
                 <h3 className="font-semibold text-foreground/90">Item Name</h3>
                 <p className="text-small text-foreground/80">Price</p>
-                <h1 className="text-small font-medium mt-2">Item description</h1>
+                <h1 className="text-small font-medium mt-2">
+                  Item description
+                </h1>
               </div>
               <Button
                 isIconOnly
@@ -46,13 +48,10 @@ export default function App() {
             </div>
 
             <div className="flex flex-col mt-3 gap-1">
-              <div className="flex justify-between">
-              </div>
+              <div className="flex justify-between"></div>
             </div>
 
-            <div className="flex w-full items-center justify-center">
-
-            </div>
+            <div className="flex w-full items-center justify-center"></div>
           </div>
         </div>
       </CardBody>
