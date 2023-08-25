@@ -20,8 +20,8 @@ const Topbar: FunctionComponent = () => {
   const userStore = useUserStore();
 
   return (
-    <>
-      <Navbar fluid rounded className="absolute w-screen z-50 bg-white">
+    <div className="w-screen absolute">
+      <Navbar fluid rounded className=" max-w-6xl w-full mx-auto z-50 bg-white">
         <Navbar.Brand href="/">
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             SAECOM
@@ -76,7 +76,7 @@ const Topbar: FunctionComponent = () => {
       <span className="flex md:hidden mt-16 absolute w-full justify-center">
         {showSearch && <SearchBar />}
       </span>
-    </>
+    </div>
   );
 };
 
