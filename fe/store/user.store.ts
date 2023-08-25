@@ -8,8 +8,8 @@ type State = {
 };
 
 type Actions = {
-  updateUser: (data: IUser) => void;
-  updateToken: (token: string) => void;
+  updateUser: (data: IUser, skipPersist?: boolean) => void;
+  updateToken: (token: string, skipPersist?: boolean) => void;
   signOut: () => void;
 };
 
@@ -17,8 +17,24 @@ export const useUserStore = create<State & Actions>()(
   devtools((set) => ({
     user: null,
     access_token: "",
-    updateUser: (data) => set(() => ({ user: data })),
-    updateToken: (token) => set((state) => ({ ...state, access_token: token })),
-    signOut: () => set((state) => ({ ...state, user: null, access_token: "" })),
+    updateUser: (data, skipPersist) =>
+      set(() => {
+        !skipPersist && localStorage.setItem("user", JSON.stringify(data));
+
+        return { user: data };
+      }),
+    updateToken: (token, skipPersist) =>
+      set(() => {
+        !skipPersist && localStorage.setItem("access_token", token);
+
+        return { access_token: token };
+      }),
+    signOut: () =>
+      set((state) => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("access_token");
+
+        return { ...state, user: null, access_token: "" };
+      }),
   }))
 );

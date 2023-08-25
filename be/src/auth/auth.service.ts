@@ -30,7 +30,7 @@ export class AuthService {
     };
 
     const res: AuthResponse = {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.generateAccessToken(payload),
       display_name: user.name,
     };
 
@@ -56,10 +56,16 @@ export class AuthService {
     };
 
     const res: AuthResponse = {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.generateAccessToken(payload),
       display_name: user.name,
     };
 
     return res;
+  }
+
+  private generateAccessToken(payload: IJwtPayload) {
+    return this.jwtService.sign(payload, {
+      expiresIn: '7d',
+    });
   }
 }
