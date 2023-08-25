@@ -11,7 +11,9 @@ import { RegisterDto, SignInDto } from './auth.dto';
 import { Public } from './auth.guard';
 import { AuthService } from './auth.service';
 import { AuthResponse } from '@saecom/types';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -24,6 +26,7 @@ export class AuthController {
   }
 
   @Get('me')
+  @ApiBearerAuth()
   getMe(@Request() req) {
     return req.user;
   }

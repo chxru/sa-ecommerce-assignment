@@ -12,14 +12,15 @@ import { z } from "zod";
 const schema = z.object({
   email: z.string().email(),
   password: z.string(),
+  name: z.string(),
 });
 
-type LoginForm = z.infer<typeof schema>;
+type RegisterForm = z.infer<typeof schema>;
 
-const LoginPage: FunctionComponent = () => {
+const RegisterPage: FunctionComponent = () => {
   const [loading, setLoading] = useState(true);
   const store = useUserStore();
-  const { register, handleSubmit } = useForm<LoginForm>({
+  const { register, handleSubmit } = useForm<RegisterForm>({
     resolver: zodResolver(schema),
   });
   const router = useRouter();
@@ -33,14 +34,15 @@ const LoginPage: FunctionComponent = () => {
     setLoading(false);
   }, [loading, router, store.access_token]);
 
-  const HandleSubmit: SubmitHandler<LoginForm> = async (data) => {
+  const HandleSubmit: SubmitHandler<RegisterForm> = async (data) => {
     const dto = {
       email: data.email,
       password: data.password,
+      name: data.name,
     };
 
     try {
-      const res = await Fetcher.post<AuthResponse>("/auth/login", dto);
+      const res = await Fetcher.post<AuthResponse>("/auth/register", dto);
       if (res.status !== 200) {
         throw new Error("Invalid response");
       }
@@ -88,12 +90,30 @@ const LoginPage: FunctionComponent = () => {
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Sign in to your account
+          Register
         </h2>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit(HandleSubmit)}>
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Name
+            </label>
+            <div className="mt-2">
+              <input
+                id="name"
+                type="text"
+                required
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register("name")}
+              />
+            </div>
+          </div>
+
           <div>
             <label
               htmlFor="email"
@@ -120,14 +140,6 @@ const LoginPage: FunctionComponent = () => {
               >
                 Password
               </label>
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-semibold text-indigo-600 hover:text-indigo-500"
-                >
-                  Forgot password?
-                </a>
-              </div>
             </div>
             <div className="mt-2">
               <input
@@ -145,7 +157,7 @@ const LoginPage: FunctionComponent = () => {
               type="submit"
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Sign in
+              Register
             </button>
           </div>
         </form>
@@ -154,4 +166,4 @@ const LoginPage: FunctionComponent = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

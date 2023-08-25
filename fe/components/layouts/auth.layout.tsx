@@ -13,6 +13,11 @@ const AuthLayout: FunctionComponent<AuthLayoutProps> = ({ children }) => {
   const store = useUserStore();
 
   useEffect(() => {
+    // skip if store is missing
+    if (!store) {
+      return;
+    }
+
     // run only in first render
     if (!firstRun.current) {
       return;
@@ -32,7 +37,7 @@ const AuthLayout: FunctionComponent<AuthLayoutProps> = ({ children }) => {
 
     // set firstRun to false
     firstRun.current = false;
-  }, []);
+  }, [store]);
 
   return <>{children}</>;
 };
