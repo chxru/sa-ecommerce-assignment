@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "dev:be": "yarn --cwd ./be/ start:dev",
-    "dev:fe": "yarn --cwd ./fe/ dev"
+    "dev:fe": "yarn --cwd ./fe/ dev",
+    "sb": "yarn --cwd ./fe/ storybook"
   },
   "devDependencies": {
     "prettier": "2.8.8"
