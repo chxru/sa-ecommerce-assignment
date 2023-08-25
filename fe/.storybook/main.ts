@@ -1,6 +1,6 @@
 import type { StorybookConfig } from "@storybook/nextjs";
 
-import { join, dirname } from "path";
+import { join, dirname, resolve } from "path";
 
 /**
  * This function is used to resolve the absolute path of a package.
@@ -27,6 +27,14 @@ const config: StorybookConfig = {
   },
   docs: {
     autodocs: "tag",
+  },
+  webpackFinal(config, options) {
+    config.resolve!.alias = {
+      ...config.resolve?.alias,
+      "@": resolve(__dirname, "../"),
+    };
+
+    return config;
   },
 };
 export default config;
