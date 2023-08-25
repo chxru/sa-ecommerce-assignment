@@ -8,6 +8,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LoggerMiddleware } from './middleware/logger.middleware';
+import { EmailService } from './email/email.service';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
+    EmailService,
   ],
 })
 export class AppModule implements NestModule {
