@@ -13,6 +13,8 @@
   "scripts": {
     "dev:be": "yarn --cwd ./be/ start:dev",
     "dev:fe": "yarn --cwd ./fe/ dev",
+    "lint:be": "yarn --cwd ./be/ lint",
+    "lint:fe": "yarn --cwd ./fe/ lint",
     "sb": "yarn --cwd ./fe/ storybook"
   },
   "devDependencies": {
