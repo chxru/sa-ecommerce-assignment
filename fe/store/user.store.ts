@@ -36,5 +36,5 @@ export const useUserStore = create<State & Actions>()(
 
         return { ...state, user: null, access_token: "" };
       }),
-  })),
+  }))
 );
