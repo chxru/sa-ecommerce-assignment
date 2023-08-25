@@ -1,8 +1,8 @@
 import AuthLayout from "@/components/layouts/auth.layout";
+import Topbar from "@/components/navigation/topbar.component";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Topbar from "@/components/navbar.component";
 
 const inter = Inter({ subsets: ["latin"] });
 

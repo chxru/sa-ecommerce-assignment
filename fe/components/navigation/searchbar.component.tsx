@@ -2,9 +2,7 @@
 
 import { FunctionComponent } from "react";
 
-interface SearchBarProps {}
-
-const SearchBar: FunctionComponent<SearchBarProps> = () => {
+const SearchBar: FunctionComponent = () => {
   return (
     <div className="relative mr-4">
       <input

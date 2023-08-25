@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import Topbar from "./navbar.component";
+import Topbar from "./topbar.component";
 
 const meta = {
   title: "Navigation/Topbar",
