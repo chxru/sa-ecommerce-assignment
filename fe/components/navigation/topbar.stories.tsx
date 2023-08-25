@@ -16,4 +16,18 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof Topbar>;
 
-export const Default: Story = {};
+export const Unauthenticated: Story = {
+  args: {
+    username: undefined,
+    onLogin: () => {},
+    onSignOut: () => {},
+  },
+};
+
+export const Authenticated: Story = {
+  args: {
+    username: "John Doe",
+    onLogin: () => {},
+    onSignOut: () => {},
+  },
+};
