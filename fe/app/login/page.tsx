@@ -31,7 +31,7 @@ const LoginPage: FunctionComponent = () => {
     }
 
     setLoading(false);
-  }, [loading, store.access_token]);
+  }, [loading, router, store.access_token]);
 
   const HandleSubmit: SubmitHandler<LoginForm> = async (data) => {
     const dto = {
