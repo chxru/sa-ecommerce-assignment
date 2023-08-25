@@ -22,17 +22,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Lint backend
-        uses: wearerequired/lint-action@v2.3.0
-        with:
-          eslint: true
-          eslint_dir: be/
-          prettier: true
-          prettier_dir: be/
+        run: yarn lint:be
 
-      - name: Lint backend
-        uses: wearerequired/lint-action@v2.3.0
-        with:
-          eslint: true
-          eslint_dir: fe/
-          prettier: true
-          prettier_dir: fe/
+      - name: Lint frontend
+        run: yarn lint:fe
