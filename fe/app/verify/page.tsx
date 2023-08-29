@@ -4,7 +4,6 @@ import { Fetcher } from "@/util/axios";
 import { Spinner } from "flowbite-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FunctionComponent, useEffect, useState } from "react";
-import { set } from "zod";
 
 const EmailVerificationPage: FunctionComponent = () => {
   const router = useRouter();
