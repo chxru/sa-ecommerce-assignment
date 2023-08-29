@@ -20,14 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthLayout>
-          <Topbar
-            username={userStore.user?.username}
-            onLogin={() => router.push("/")}
-            onSignOut={() => userStore.signOut()}
-          />
-          {children}
-        </AuthLayout>
+        <Topbar
+          username={userStore.user?.username}
+          onLogin={() => router.push("/")}
+          onSignOut={() => userStore.signOut()}
+        />
+        <AuthLayout>{children}</AuthLayout>
       </body>
     </html>
   );
