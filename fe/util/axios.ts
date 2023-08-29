@@ -8,6 +8,14 @@ const instance = axios.create({
   },
 });
 
+/**
+ * Update the bearer token in axios instance
+ * @param token access token
+ */
+export const UpdateAxiosBearerToken = (token: string) => {
+  instance.defaults.headers.Authorization = `Bearer ${token}`;
+};
+
 export const Fetcher = {
   get: instance.get,
   post: instance.post,
