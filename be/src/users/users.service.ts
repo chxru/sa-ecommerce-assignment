@@ -23,7 +23,11 @@ export class UsersService {
     return createdUser.save();
   }
 
-  async findOne(email: string) {
+  async findOneByEmail(email: string) {
     return this.userModel.findOne({ email }).exec();
+  }
+
+  async findOneById(id: string) {
+    return this.userModel.findById(id).exec();
   }
 }

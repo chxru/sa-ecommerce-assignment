@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { EmailService } from './email/email.service';
+import { EmailController } from './email/email.controller';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { EmailService } from './email/email.service';
     AuthModule,
     UsersModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, EmailController],
   providers: [
     AppService,
     {
