@@ -34,4 +34,41 @@ export class ProductsService {
 
     return categories;
   }
+
+  async paginatedQuery(page: number, limit: number, category?: string) {
+    const products: ProductDocument[] = await this.productModel.aggregate([
+      {
+        $match: {
+          category: category ? category : { $exists: true },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          price: 1,
+          category: 1,
+        },
+      },
+      {
+        $facet: {
+          metadata: [
+            {
+              $count: 'total',
+            },
+          ],
+          data: [
+            {
+              $skip: (page - 1) * limit,
+            },
+            {
+              $limit: limit,
+            },
+          ],
+        },
+      },
+    ]);
+
+    return products;
+  }
 }

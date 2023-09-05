@@ -17,4 +17,23 @@ export class ProductsController {
   getRandomProducts(@Param('n') n: string) {
     return this.productsService.getRandomProducts(+n);
   }
+
+  @Public()
+  @Get('page/:page/limit/:limit')
+  getPaginatedProducts(
+    @Param('page') page: string,
+    @Param('limit') limit: string,
+  ) {
+    return this.productsService.paginatedQuery(+page, +limit);
+  }
+
+  @Public()
+  @Get('page/:page/limit/:limit/category/:category')
+  getPaginatedProductsByCategory(
+    @Param('page') page: string,
+    @Param('limit') limit: string,
+    @Param('category') category: string,
+  ) {
+    return this.productsService.paginatedQuery(+page, +limit, category);
+  }
 }
