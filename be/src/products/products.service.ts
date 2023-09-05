@@ -69,6 +69,6 @@ export class ProductsService {
       },
     ]);
 
-    return products;
+    return products[0];
   }
 }
