@@ -8,7 +8,7 @@ const HomePage: FunctionComponent = () => {
 
   return (
     <main>
-      <div className="flex h-screen w-screen items-center justify-center">
+      <div className="flex h-screen w-full items-center justify-center">
         {store.user?.username ? (
           <h1>Hello {store.user.username}</h1>
         ) : (
