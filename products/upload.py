@@ -50,7 +50,7 @@ for file in os.listdir(os.path.join(os.getcwd(), "products", "json")):
     if file.endswith(".json"):
         read_json(os.path.join(os.getcwd(), "products", "json", file), file)
 
-client = MongoClient("mongodb+srv://dev:FslC3E2AkMVB3i3Q@saecom.qah8kti.mongodb.net/")
+client = MongoClient(os.getenv("MONGO_URI"))
 db = client["test"]
 collection = db["products"]
 
