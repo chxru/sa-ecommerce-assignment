@@ -8,6 +8,8 @@ import { AuthGuard } from './auth/auth.guard';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LoggerMiddleware } from './middleware/logger.middleware';
+import { EmailService } from './email/email.service';
+import { EmailController } from './email/email.controller';
 import { ProductsModule } from './products/products.module';
 
 @Module({
@@ -18,13 +20,14 @@ import { ProductsModule } from './products/products.module';
     UsersModule,
     ProductsModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, EmailController],
   providers: [
     AppService,
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
+    EmailService,
   ],
 })
 export class AppModule implements NestModule {

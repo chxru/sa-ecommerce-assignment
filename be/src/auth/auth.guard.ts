@@ -10,6 +10,11 @@ import { Request } from 'express';
 import { jwtConstants } from './constants';
 import { Reflector } from '@nestjs/core';
 
+export interface IReqUser {
+  id: string;
+  email: string;
+}
+
 const IS_PUBLIC_KEY = 'isPublic';
 export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
 
@@ -42,7 +47,12 @@ export class AuthGuard implements CanActivate {
         secret: jwtConstants.secret,
       });
 
-      request.user = payload;
+      const data: IReqUser = {
+        id: payload.sub,
+        email: payload.email,
+      };
+
+      request.user = data;
     } catch (error) {
       throw new UnauthorizedException();
     }
