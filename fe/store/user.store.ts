@@ -1,3 +1,4 @@
+import { UpdateAxiosBearerToken } from "@/util/axios";
 import { IUser } from "@saecom/types";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
@@ -26,6 +27,7 @@ export const useUserStore = create<State & Actions>()(
     updateToken: (token, skipPersist) =>
       set(() => {
         !skipPersist && localStorage.setItem("access_token", token);
+        UpdateAxiosBearerToken(token);
 
         return { access_token: token };
       }),
