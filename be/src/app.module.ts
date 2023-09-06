@@ -10,6 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { EmailService } from './email/email.service';
 import { EmailController } from './email/email.controller';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { EmailController } from './email/email.controller';
     MongooseModule.forRoot(process.env.MONGO_URL),
     AuthModule,
     UsersModule,
+    ProductsModule,
   ],
   controllers: [AppController, EmailController],
   providers: [

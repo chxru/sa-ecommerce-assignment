@@ -1,6 +1,7 @@
 "use client";
 
 import "./globals.css";
+import SidebarLayout from "@/components/layouts/siderbar.layout";
 import AuthLayout from "@/components/layouts/auth.layout";
 import Topbar from "@/components/navigation/topbar.component";
 import { useUserStore } from "@/store/user.store";
@@ -20,12 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Topbar
-          username={userStore.user?.username}
-          onLogin={() => router.push("/")}
-          onSignOut={() => userStore.signOut()}
-        />
-        <AuthLayout>{children}</AuthLayout>
+        <AuthLayout>
+          <Topbar
+            username={userStore.user?.username}
+            onLogin={() => router.push("/")}
+            onSignOut={() => userStore.signOut()}
+          />
+
+          <SidebarLayout>{children}</SidebarLayout>
+        </AuthLayout>
       </body>
     </html>
   );
