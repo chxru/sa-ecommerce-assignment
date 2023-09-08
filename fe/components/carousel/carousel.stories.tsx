@@ -1,4 +1,14 @@
-import CardCarousel from "./card.carousel";
+import type { Meta, StoryObj } from "@storybook/react";
+
+import ProductCarousel from "./product.carousel";
+
+const meta = {
+  title: "Products/ProductCarousel",
+  component: ProductCarousel,
+} satisfies Meta<typeof ProductCarousel>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 const cards = [
   {
@@ -27,12 +37,8 @@ const cards = [
   },
 ];
 
-const ProductCarousel: React.FC = () => {
-  return (
-    <div className="container mx-auto mt-4">
-      <CardCarousel cards={cards} interval={3000} />
-    </div>
-  );
+export const Default: Story = {
+  args: {
+    cards,
+  },
 };
-
-export default ProductCarousel;
