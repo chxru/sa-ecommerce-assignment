@@ -1,11 +1,13 @@
 // components/CheckoutSummary.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 
 interface CartItem {
   id: number;
   name: string;
   price: number;
   quantity: number;
+  img:string;
 }
 
 interface CheckoutSummaryProps {
@@ -16,36 +18,10 @@ interface CheckoutSummaryProps {
 
 const CheckoutSummary: React.FC<CheckoutSummaryProps> = ({
   cart,
-  onQuantityChange,
   onRemoveItem,
 }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>(cart);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-
-  useEffect(() => {
-    // Calculate the total price when the cart items change
-    const newTotalPrice = cartItems.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
-    setTotalPrice(newTotalPrice);
-  }, [cartItems]);
-
-  const updateQuantity = (itemId: number, newQuantity: number) => {
-    // Validate that the quantity is not negative
-    if (newQuantity < 0) return;
-
-    const updatedCart = cartItems.map((item) =>
-      item.id === itemId ? { ...item, quantity: newQuantity } : item
-    );
-    setCartItems(updatedCart);
-
-    // Call the onQuantityChange callback if provided
-    if (onQuantityChange) {
-      onQuantityChange(itemId, newQuantity);
-    }
-  };
-
+  
   const removeFromCart = (itemId: number) => {
     const updatedCart = cartItems.filter((item) => item.id !== itemId);
     setCartItems(updatedCart);
@@ -63,9 +39,11 @@ const CheckoutSummary: React.FC<CheckoutSummaryProps> = ({
         {cartItems.map((item) => (
           <div key={item.id} className="flex items-center justify-between border-b pb-4">
             <div className="flex items-center space-x-4">
-              <img
-                src={`https://via.placeholder.com/48x48.png?text=${item.name}`}
+              <Image
+                src={item.img}
                 alt={item.name}
+                width={48} // Specify the width you want here
+                height={48}
                 className="w-12 h-12 rounded-full"
               />
               <div>
@@ -74,32 +52,30 @@ const CheckoutSummary: React.FC<CheckoutSummaryProps> = ({
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <button
-                onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                className="px-2 py-1 bg-gray-200 rounded-full text-gray-600"
-              >
-                -
-              </button>
-              <span className="text-lg font-semibold">{item.quantity}</span>
-              <button
-                onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                className="px-2 py-1 bg-gray-200 rounded-full text-gray-600"
-              >
-                +
-              </button>
+              
+              
+
               <button
                 onClick={() => removeFromCart(item.id)}
-                className="text-red-500 hover:text-red-600"
+                className="text-red-500 hover:text-red-600 flex items-center"
               >
-                Remove
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 mr-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M6.293 6.293a1 1 0 011.414 0L10 8.586l2.293-2.293a1 1 0 111.414 1.414L11.414 10l2.293 2.293a1 1 0 01-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 01-1.414-1.414L8.586 10 6.293 7.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                
               </button>
             </div>
           </div>
         ))}
-      </div>
-      <div className="mt-4">
-        <p className="text-xl font-semibold">Total Items: {cartItems.length}</p>
-        <p className="text-xl font-semibold mt-2">Total Price: ${totalPrice.toFixed(2)}</p>
       </div>
       <button className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 mt-4 w-full">
         Place Order
