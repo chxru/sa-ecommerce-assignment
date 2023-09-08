@@ -38,6 +38,13 @@ export class ProductsService {
 
   async getRandomProducts(n: number) {
     const products: ProductDocument[] = await this.productModel.aggregate([
+      {
+        $match: {
+          price: {
+            $ne: null,
+          },
+        },
+      },
       { $sample: { size: n } },
       {
         $project: {
@@ -49,11 +56,21 @@ export class ProductsService {
       },
     ]);
 
+    // get total number of products
+    const total = await this.productModel.countDocuments();
+
     // add image property to products
-    return products.map((product) => ({
+    const data = products.map((product) => ({
       ...product,
       image: images[product.category],
     }));
+
+    return {
+      metadata: {
+        total,
+      },
+      data,
+    };
   }
 
   async getCategories() {
