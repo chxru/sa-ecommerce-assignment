@@ -22,7 +22,7 @@ const SidebarLayout: FunctionComponent<SidebarLayoutProps> = (props) => {
           data={
             res?.data.map((item) => ({
               name: item.replaceAll("-", " "),
-              path: `/products/category/${item}`,
+              path: `/category/${item}`,
             })) || []
           }
         />

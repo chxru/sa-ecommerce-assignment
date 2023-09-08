@@ -3,6 +3,29 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product, ProductDocument } from './entities/product.entity';
 
+const images = {
+  case: 'https://www.gamestreet.lk/images/products/4694.jpg',
+  cpu: 'https://www.gamestreet.lk/images/products/1836.jpg',
+  'external-hard-drive': 'https://www.gamestreet.lk/images/products/4756.jpg',
+  headphones: 'https://www.gamestreet.lk/images/products/5332.jpg',
+  'internal-hard-drive': 'https://www.gamestreet.lk/images/products/4514.jpg',
+  keyboard: 'https://www.gamestreet.lk/images/products/570.jpg',
+  memory: 'https://www.gamestreet.lk/images/products/3805.jpg',
+  monitor: 'https://www.gamestreet.lk/images/products/5438.jpg',
+  motherboard: 'https://www.gamestreet.lk/images/products/4499.jpg',
+  mouse: 'https://www.gamestreet.lk/images/products/3736.jpg',
+  'optical-drive': 'https://www.gamestreet.lk/images/products/3879.jpg',
+  'power-supply': 'https://www.gamestreet.lk/images/products/4067.jpg',
+  'sound-card':
+    'https://www.sense.lk/images/uploads/product/2022/11/2022112509213501.png.png',
+  speakers: 'https://www.gamestreet.lk/images/products/4438.jpg',
+  'thermal-paste':
+    'https://redtech.lk/wp-content/uploads/2021/05/Cooler-Master-MASTERGEL-PRO-Flat-Injector-2.png',
+  ups: 'https://www.nanotek.lk/uploads/product/2193-20230817153054-ROG-Loki-SFX-L-750W-Platinum.png',
+  webcam:
+    'https://www.nanotek.lk/uploads/product/2097-20220105121814-c270-gallery-1.png',
+};
+
 @Injectable()
 export class ProductsService {
   constructor(
@@ -15,6 +38,13 @@ export class ProductsService {
 
   async getRandomProducts(n: number) {
     const products: ProductDocument[] = await this.productModel.aggregate([
+      {
+        $match: {
+          price: {
+            $ne: null,
+          },
+        },
+      },
       { $sample: { size: n } },
       {
         $project: {
@@ -26,7 +56,21 @@ export class ProductsService {
       },
     ]);
 
-    return products;
+    // get total number of products
+    const total = await this.productModel.countDocuments();
+
+    // add image property to products
+    const data = products.map((product) => ({
+      ...product,
+      image: images[product.category],
+    }));
+
+    return {
+      metadata: {
+        total,
+      },
+      data,
+    };
   }
 
   async getCategories() {
@@ -36,7 +80,7 @@ export class ProductsService {
   }
 
   async paginatedQuery(page: number, limit: number, category?: string) {
-    const products: ProductDocument[] = await this.productModel.aggregate([
+    const products = await this.productModel.aggregate([
       {
         $match: {
           category: category ? category : { $exists: true },
@@ -69,6 +113,14 @@ export class ProductsService {
       },
     ]);
 
-    return products[0];
+    console.log(products);
+
+    return {
+      metadata: products[0].metadata[0],
+      data: products[0].data.map((product) => ({
+        ...product,
+        image: images[product?.category],
+      })),
+    };
   }
 }
