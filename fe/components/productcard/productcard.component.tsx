@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from "react";
 
-interface productProps {
+interface ProductProps {
   productImage: string;
   deviceName: string;
   price: number;
 }
 
-const productCard: FunctionComponent<productProps> = (props) => {
+const productCard: FunctionComponent<ProductProps> = (props) => {
   return (
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <a href="#">
