@@ -1,5 +1,5 @@
 // Team.tsx
-import React from 'react';
+import React from "react";
 
 interface TeamMember {
   name: string;
@@ -15,7 +15,7 @@ interface TeamMember {
 
 interface TeamProps {
   teamMembers: TeamMember[];
-  
+
   description: string;
 }
 
@@ -24,12 +24,16 @@ const Team: React.FC<TeamProps> = ({ teamMembers, description }) => {
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
-          <h1 className="text-2xl font-medium title-font mb-4 text-gray-900"> OUR TEAM </h1>
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base">{description}</p>
+          <h1 className="text-2xl font-medium title-font mb-4 text-gray-900">
+            OUR TEAM{" "}
+          </h1>
+          <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
+            {description}
+          </p>
         </div>
         <div className="flex flex-wrap -m-4">
           {teamMembers.map((member, index) => (
-            <div key={index} className="p-4 lg:w-1/3 md:w-1/4">
+            <div key={member.name} className="p-4 lg:w-1/3 md:w-1/4">
               <div className="h-full flex flex-col items-center text-center">
                 <img
                   alt={member.name}
@@ -37,12 +41,19 @@ const Team: React.FC<TeamProps> = ({ teamMembers, description }) => {
                   src={member.imageUrl}
                 />
                 <div className="w-full">
-                  <h2 className="title-font font-medium text-lg text-gray-900">{member.name}</h2>
+                  <h2 className="title-font font-medium text-lg text-gray-900">
+                    {member.name}
+                  </h2>
                   <h3 className="text-gray-500 mb-3">{member.role}</h3>
                   <p className="mb-4">{member.description}</p>
                   <span className="inline-flex">
                     {member.socialLinks.github && (
-                      <a href={member.socialLinks.github} target="_blank" rel="noopener noreferrer" className="text-gray-500">
+                      <a
+                        href={member.socialLinks.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-500"
+                      >
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -57,7 +68,12 @@ const Team: React.FC<TeamProps> = ({ teamMembers, description }) => {
                       </a>
                     )}
                     {member.socialLinks.twitter && (
-                      <a href={member.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="ml-2 text-gray-500">
+                      <a
+                        href={member.socialLinks.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-2 text-gray-500"
+                      >
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -72,7 +88,12 @@ const Team: React.FC<TeamProps> = ({ teamMembers, description }) => {
                       </a>
                     )}
                     {member.socialLinks.linkedin && (
-                      <a href={member.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="ml-2 text-gray-500">
+                      <a
+                        href={member.socialLinks.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-2 text-gray-500"
+                      >
                         <svg
                           fill="none"
                           stroke="currentColor"

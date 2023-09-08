@@ -1,4 +1,3 @@
-// components/CheckoutSummary.tsx
 import React, { useState } from 'react';
 import Image from 'next/image';
 
@@ -33,11 +32,16 @@ const CheckoutSummary: React.FC<CheckoutSummaryProps> = ({
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md w-full"> {/* Full width styling */}
+    <div className="bg-white p-6 rounded-lg shadow-md w-full">
+      {" "}
+      {/* Full width styling */}
       <h2 className="text-2xl font-semibold mb-4">Checkout Summary</h2>
       <div className="space-y-4">
         {cartItems.map((item) => (
-          <div key={item.id} className="flex items-center justify-between border-b pb-4">
+          <div
+            key={item.id}
+            className="flex items-center justify-between border-b pb-4"
+          >
             <div className="flex items-center space-x-4">
               <Image
                 src={item.img}
@@ -77,6 +81,14 @@ const CheckoutSummary: React.FC<CheckoutSummaryProps> = ({
           </div>
         ))}
       </div>
+
+      <div className="mt-4">
+        <p className="text-xl font-semibold">Total Items: {cartItems.length}</p>
+        <p className="text-xl font-semibold mt-2">
+          Total Price: ${totalPrice.toFixed(2)}
+        </p>
+      </div>
+
       <button className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 mt-4 w-full">
         Place Order
       </button>

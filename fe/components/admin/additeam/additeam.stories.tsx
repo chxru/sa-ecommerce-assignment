@@ -1,17 +1,17 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import AddItems from './additeam.component';
+import type { Meta, StoryObj } from "@storybook/react";
 
-export default {
-  title: 'Admin/AddItem ',
+import AddItems from "./additeam.component";
+
+const meta = {
+  title: "Admin/AddItem ",
   component: AddItems,
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
   },
-} as Meta;
+} satisfies Meta<typeof AddItems>;
 
-const Template: Story = (args) => <AddItems {...args} />;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Default = Template.bind({});
-Default.args = {};
+export const Default: Story = {};

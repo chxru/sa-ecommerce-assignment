@@ -1,10 +1,10 @@
 // stories/CheckoutSummary.stories.tsx
-import React from 'react';
-import { action } from '@storybook/addon-actions';
-import CheckoutSummary from './checkout.component';
+import React from "react";
+import { action } from "@storybook/addon-actions";
+import CheckoutSummary from "./checkout.component";
 
 export default {
-  title: 'Products/CheckoutSummary',
+  title: "Products/CheckoutSummary",
   component: CheckoutSummary,
   tags: ["autodocs"],
   parameters: {
@@ -18,5 +18,8 @@ const cartItems = [
 ];
 
 export const Default = () => (
-  <CheckoutSummary cart={cartItems} onQuantityChange={action('Quantity Changed')} />
+  <CheckoutSummary
+    cart={cartItems}
+    onQuantityChange={action("Quantity Changed")}
+  />
 );
