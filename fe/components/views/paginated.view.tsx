@@ -9,24 +9,29 @@ import { Pagination } from "flowbite-react";
 
 const LIMIT = 9;
 
-const GenerateURL = (page: number, category?: string) => {
-  if (category) {
-    return `/products/page/${page}/limit/${LIMIT}/category/${category}`;
+interface PaginatedViewerProps {
+  category?: string;
+  random?: boolean;
+}
+
+const GenerateURL = (page: number, props: PaginatedViewerProps) => {
+  if (props.random) {
+    return `/products/random/${LIMIT}`;
+  }
+
+  if (props.category) {
+    return `/products/page/${page}/limit/${LIMIT}/category/${props.category}`;
   }
 
   return `/products/page/${page}/limit/${LIMIT}`;
 };
-
-interface PaginatedViewerProps {
-  category?: string;
-}
 
 const PaginatedViewer: FunctionComponent<PaginatedViewerProps> = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
   const { data: res, isLoading } = useSWR<PaginatedProductQueryResponse>(
-    GenerateURL(currentPage, props.category),
+    GenerateURL(currentPage, props),
     Fetcher.get,
     {
       revalidateOnFocus: false,
