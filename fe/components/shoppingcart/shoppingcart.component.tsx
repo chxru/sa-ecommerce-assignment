@@ -1,6 +1,6 @@
 // components/ShoppingCart.tsx
 
-import React from 'react';
+import React from "react";
 
 // Define prop types for the ShoppingCart component
 export interface ShoppingCartProps {

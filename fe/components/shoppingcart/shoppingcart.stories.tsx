@@ -1,8 +1,8 @@
 // src/stories/ShoppingCart.stories.tsx
 
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import ShoppingCart, { ShoppingCartProps } from './shoppingcart.component';
+import React from "react";
+import { Story, Meta } from "@storybook/react";
+import ShoppingCart from "./shoppingcart.component";
 
 // Define the arguments and their types
 interface ShoppingCartStoryArgs {
@@ -17,19 +17,18 @@ const ShoppingCartTemplate: Story<ShoppingCartStoryArgs> = (args) => (
 );
 
 export default {
-  title: 'Products/ShoppingCart',
+  title: "Products/ShoppingCart",
   component: ShoppingCart,
   argTypes: {
-    subtotal: { control: 'number' },
-    taxes: { control: 'number' },
-    shipping: { control: 'number' },
-    total: { control: 'number' },
+    subtotal: { control: "number" },
+    taxes: { control: "number" },
+    shipping: { control: "number" },
+    total: { control: "number" },
   },
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
   },
-
 } as Meta;
 
 // Create a Default story with default values for arguments
