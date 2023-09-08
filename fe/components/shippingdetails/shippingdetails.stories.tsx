@@ -1,9 +1,9 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import ShippingDetails from './shippingdetails.component';
+import React from "react";
+import { Story, Meta } from "@storybook/react";
+import ShippingDetails from "./shippingdetails.component";
 
 export default {
-  title: 'Products/ShippingDetails',
+  title: "Products/ShippingDetails",
   component: ShippingDetails,
   tags: ["autodocs"],
   parameters: {
