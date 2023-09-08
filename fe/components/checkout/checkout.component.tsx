@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React, { useState } from "react";
+import Image from "next/image";
 
 interface CartItem {
   id: number;
   name: string;
   price: number;
   quantity: number;
-  img:string;
+  img: string;
 }
 
 interface CheckoutSummaryProps {
@@ -20,10 +20,20 @@ const CheckoutSummary: React.FC<CheckoutSummaryProps> = ({
   onRemoveItem,
 }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>(cart);
-  
+  const [totalPrice, setTotalPrice] = useState<number>(
+    cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+  );
+
   const removeFromCart = (itemId: number) => {
     const updatedCart = cartItems.filter((item) => item.id !== itemId);
     setCartItems(updatedCart);
+
+    // Update the total price
+    const newTotalPrice = updatedCart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+    setTotalPrice(newTotalPrice);
 
     // Call the onRemoveItem callback if provided
     if (onRemoveItem) {
@@ -56,9 +66,6 @@ const CheckoutSummary: React.FC<CheckoutSummaryProps> = ({
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              
-              
-
               <button
                 onClick={() => removeFromCart(item.id)}
                 className="text-red-500 hover:text-red-600 flex items-center"
@@ -75,20 +82,17 @@ const CheckoutSummary: React.FC<CheckoutSummaryProps> = ({
                     clipRule="evenodd"
                   />
                 </svg>
-                
               </button>
             </div>
           </div>
         ))}
       </div>
-
       <div className="mt-4">
         <p className="text-xl font-semibold">Total Items: {cartItems.length}</p>
         <p className="text-xl font-semibold mt-2">
           Total Price: ${totalPrice.toFixed(2)}
         </p>
       </div>
-
       <button className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 mt-4 w-full">
         Place Order
       </button>
