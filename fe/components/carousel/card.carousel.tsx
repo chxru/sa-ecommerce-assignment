@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 
 interface Card {
   id: number;
-  title: string;
+  name: string;
   description: string;
+  price: number;
+  photoUrl: string;
 }
 
 interface CardCarouselProps {
@@ -36,11 +38,11 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ cards, interval }) => {
   };
 
   return (
-    <div className="flex justify-center items-center space-x-4">
-      <div className="max-w-xs p-4 border border-gray-300 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold">{cards[currentIndex].title}</h2>
-        <p className="mt-2">{cards[currentIndex].description}</p>
-      </div>
+    <div className="bg-white rounded-lg shadow-md p-4">
+      <img src={cards[currentIndex].photoUrl} alt={cards[currentIndex].name} className="w-full h-32 object-cover mb-4" />
+      <h2 className="text-xl font-semibold mb-2">{cards[currentIndex].name}</h2>
+      <p className="text-gray-600 mb-2">{cards[currentIndex].description}</p>
+      <p className="text-green-600 font-semibold">{`$${cards[currentIndex].price.toFixed(2)}`}</p>
     </div>
   );
 };
