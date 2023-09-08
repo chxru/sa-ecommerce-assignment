@@ -1,9 +1,9 @@
 // stories/ContactUs.stories.tsx
-import React from 'react';
-import ContactUs from './contentus.component';
+import React from "react";
+import ContactUs from "./contentus.component";
 
 export default {
-  title: 'ContactUs/ContactUs',
+  title: "ContactUs/ContactUs",
   component: ContactUs,
   tags: ["autodocs"],
   parameters: {
