@@ -3,35 +3,27 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product, ProductDocument } from './entities/product.entity';
 
-// TODO: add images for each category
 const images = {
-  case: 'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  cpu: 'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  'external-hard-drive':
-    'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  headphones:
-    'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  'internal-hard-drive':
-    'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  keyboard:
-    'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  memory: 'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  monitor: 'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  motherboard:
-    'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  mouse: 'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  'optical-drive':
-    'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  'power-supply':
-    'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
+  case: 'https://www.gamestreet.lk/images/products/4694.jpg',
+  cpu: 'https://www.gamestreet.lk/images/products/1836.jpg',
+  'external-hard-drive': 'https://www.gamestreet.lk/images/products/4756.jpg',
+  headphones: 'https://www.gamestreet.lk/images/products/5332.jpg',
+  'internal-hard-drive': 'https://www.gamestreet.lk/images/products/4514.jpg',
+  keyboard: 'https://www.gamestreet.lk/images/products/570.jpg',
+  memory: 'https://www.gamestreet.lk/images/products/3805.jpg',
+  monitor: 'https://www.gamestreet.lk/images/products/5438.jpg',
+  motherboard: 'https://www.gamestreet.lk/images/products/4499.jpg',
+  mouse: 'https://www.gamestreet.lk/images/products/3736.jpg',
+  'optical-drive': 'https://www.gamestreet.lk/images/products/3879.jpg',
+  'power-supply': 'https://www.gamestreet.lk/images/products/4067.jpg',
   'sound-card':
-    'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  speakers:
-    'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
+    'https://www.sense.lk/images/uploads/product/2022/11/2022112509213501.png.png',
+  speakers: 'https://www.gamestreet.lk/images/products/4438.jpg',
   'thermal-paste':
-    'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  ups: 'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
-  webcam: 'https://www.nanotek.lk/uploads/product/1568-20201009113125-301.png',
+    'https://redtech.lk/wp-content/uploads/2021/05/Cooler-Master-MASTERGEL-PRO-Flat-Injector-2.png',
+  ups: 'https://www.nanotek.lk/uploads/product/2193-20230817153054-ROG-Loki-SFX-L-750W-Platinum.png',
+  webcam:
+    'https://www.nanotek.lk/uploads/product/2097-20220105121814-c270-gallery-1.png',
 };
 
 @Injectable()
