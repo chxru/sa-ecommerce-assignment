@@ -33,7 +33,7 @@ const Team: React.FC<TeamProps> = ({ teamMembers, description }) => {
         </div>
         <div className="flex flex-wrap -m-4">
           {teamMembers.map((member, index) => (
-            <div key={index} className="p-4 lg:w-1/3 md:w-1/4">
+            <div key={member.name} className="p-4 lg:w-1/3 md:w-1/4">
               <div className="h-full flex flex-col items-center text-center">
                 <img
                   alt={member.name}
