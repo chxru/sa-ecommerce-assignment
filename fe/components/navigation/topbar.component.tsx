@@ -4,12 +4,14 @@ import { Button, Dropdown, Navbar } from "flowbite-react";
 import { FunctionComponent, useState } from "react";
 import {
   HiCog,
+  HiHeart,
   HiLogout,
   HiSearch,
   HiShoppingCart,
   HiViewGrid,
 } from "react-icons/hi";
 import SearchBar from "./searchbar.component";
+import { useFavouriteStore } from "@/store/favourite.store";
 import { useCartStore } from "@/store/cart.store";
 import { useRouter } from "next/navigation";
 
@@ -22,6 +24,7 @@ interface TopbarProps {
 const Topbar: FunctionComponent<TopbarProps> = (props) => {
   const router = useRouter();
   const [showSearch, setShowSearch] = useState(false);
+  const favourite = useFavouriteStore((state) => state.favourites);
   const cart = useCartStore((state) => state.cart);
 
   return (
@@ -44,6 +47,11 @@ const Topbar: FunctionComponent<TopbarProps> = (props) => {
               }}
             >
               <HiSearch className="mr-2 h-5 w-5" />
+            </Button>
+
+            <Button>
+              <HiHeart className="mr-2 h-5 w-5" />
+              <p>{favourite.length}</p>
             </Button>
 
             <Button
