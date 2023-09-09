@@ -1,19 +1,21 @@
 import { Fetcher } from "@/util/axios";
+import { useCartStore } from "@/store/cart.store";
+import { IProduct } from "@saecom/types";
+import { Button } from "flowbite-react";
 import React, { FunctionComponent } from "react";
 
 interface ProductProps {
-  id: string;
-  productImage: string;
-  deviceName: string;
-  price: number | null;
+  product: IProduct;
 }
 
 const ProductCard: FunctionComponent<ProductProps> = (props) => {
+  const cart = useCartStore((state) => state.cart);
+  const addToCard = useCartStore((state) => state.addToCart);
   const ratings = Math.floor(Math.random() * 5) + 1;
-
+  
   const FavouriteBtnClick = async () => {
     const res = await Fetcher.post(`/favourites/`, {
-      product: props.id,
+      product: props.product._id,
       create: true,
     });
 
@@ -43,14 +45,14 @@ const ProductCard: FunctionComponent<ProductProps> = (props) => {
       <a href="#">
         <img
           className="p-8 rounded-t-lg"
-          src={props.productImage}
+          src={props.product.image}
           alt="product image"
         />
       </a>
       <div className="px-5 pb-5 flex flex-col justify-between flex-grow">
         <a href="#">
           <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-            {props.deviceName}
+            {props.product.name}
           </h5>
         </a>
 
@@ -102,16 +104,26 @@ const ProductCard: FunctionComponent<ProductProps> = (props) => {
 
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold text-gray-900 dark:text-white">
-              {props.price ? `$${props.price.toFixed(0)}` : "OUT OF STOCK"}
+              {props.product.price
+                ? `$${props.product.price.toFixed(0)}`
+                : "OUT OF STOCK"}
             </span>
 
-            {!!props.price && (
-              <a
-                href="#"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            {!!props.product.price && (
+              <Button
+                disabled={
+                  cart.find((item) => item._id === props.product._id) !==
+                  undefined
+                }
+                onClick={() => {
+                  addToCard(props.product);
+                }}
               >
-                Add to cart
-              </a>
+                {cart.find((item) => item._id === props.product._id) !==
+                undefined
+                  ? "In the cart"
+                  : "Add to cart"}
+              </Button>
             )}
           </div>
         </div>

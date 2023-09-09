@@ -38,7 +38,7 @@ const AuthBox: FunctionComponent<AuthBoxProps> = (props) => {
         }
       ),
     password: z.string(),
-    name: z.string(),
+    name: z.string().optional(),
   });
 
   type AuthForm = z.infer<typeof schema>;

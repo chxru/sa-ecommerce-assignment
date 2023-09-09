@@ -25,7 +25,7 @@ export default function RootLayout({
         <AuthLayout>
           <Topbar
             username={userStore.user?.username}
-            onLogin={() => router.push("/")}
+            onLogin={() => router.push("/login")}
             onSignOut={() => userStore.signOut()}
           />
 

@@ -12,6 +12,7 @@ import { EmailService } from './email/email.service';
 import { EmailController } from './email/email.controller';
 import { ProductsModule } from './products/products.module';
 import { FavouritesModule } from './favourites/favourites.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { FavouritesModule } from './favourites/favourites.module';
     UsersModule,
     ProductsModule,
     FavouritesModule,
+    OrdersModule,
   ],
   controllers: [AppController, EmailController],
   providers: [

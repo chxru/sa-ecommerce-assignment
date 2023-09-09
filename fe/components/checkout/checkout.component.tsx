@@ -1,73 +1,41 @@
 import React, { useState } from "react";
-import Image from "next/image";
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  img: string;
-}
+import { IProduct } from "@saecom/types";
+import { Button } from "flowbite-react";
 
 interface CheckoutSummaryProps {
-  cart: CartItem[];
-  onQuantityChange?: (itemId: number, newQuantity: number) => void;
-  onRemoveItem?: (itemId: number) => void;
+  cart: IProduct[];
+  onRemoveItem: (itemId: string) => void;
 }
 
 const CheckoutSummary: React.FC<CheckoutSummaryProps> = ({
   cart,
   onRemoveItem,
 }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(cart);
-  const [totalPrice, setTotalPrice] = useState<number>(
-    cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
-  );
-
-  const removeFromCart = (itemId: number) => {
-    const updatedCart = cartItems.filter((item) => item.id !== itemId);
-    setCartItems(updatedCart);
-
-    // Update the total price
-    const newTotalPrice = updatedCart.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
-    setTotalPrice(newTotalPrice);
-
-    // Call the onRemoveItem callback if provided
-    if (onRemoveItem) {
-      onRemoveItem(itemId);
-    }
-  };
-
   return (
     <div className="bg-white p-6 rounded-lg shadow-md w-full">
-      {" "}
-      {/* Full width styling */}
       <h2 className="text-2xl font-semibold mb-4">Checkout Summary</h2>
       <div className="space-y-4">
-        {cartItems.map((item) => (
+        {cart.map((item) => (
           <div
-            key={item.id}
+            key={item._id}
             className="flex items-center justify-between border-b pb-4"
           >
             <div className="flex items-center space-x-4">
-              <Image
-                src={item.img}
+              <img
+                src={item.image}
                 alt={item.name}
-                width={48} // Specify the width you want here
-                height={48}
                 className="w-12 h-12 rounded-full"
               />
               <div>
                 <p className="text-lg font-semibold">{item.name}</p>
-                <p className="text-gray-500">Price: ${item.price.toFixed(2)}</p>
+                <p className="text-gray-500">
+                  Price: ${(item.price || 0).toFixed(2)}
+                </p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
               <button
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => onRemoveItem(item._id)}
                 className="text-red-500 hover:text-red-600 flex items-center"
               >
                 <svg
@@ -88,14 +56,12 @@ const CheckoutSummary: React.FC<CheckoutSummaryProps> = ({
         ))}
       </div>
       <div className="mt-4">
-        <p className="text-xl font-semibold">Total Items: {cartItems.length}</p>
+        <p className="text-xl font-semibold">Total Items: {cart.length}</p>
         <p className="text-xl font-semibold mt-2">
-          Total Price: ${totalPrice.toFixed(2)}
+          Total Price: $
+          {cart.reduce((acc, item) => acc + (item.price || 0), 0).toFixed(2)}
         </p>
       </div>
-      <button className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 mt-4 w-full">
-        Place Order
-      </button>
     </div>
   );
 };
