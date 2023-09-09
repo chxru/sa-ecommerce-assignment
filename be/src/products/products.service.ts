@@ -136,7 +136,9 @@ export class ProductsService {
           index: 'product_name_idx',
           text: {
             query,
-            path: 'name',
+            path: {
+              wildcard: '*',
+            },
           },
         },
       },
