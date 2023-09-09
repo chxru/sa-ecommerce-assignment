@@ -65,7 +65,7 @@ const PaginatedViewer: FunctionComponent<PaginatedViewerProps> = (props) => {
 
   return (
     <>
-      <div className="flex flex-wrap mt-4 flex-row">
+      <div className="flex flex-wrap mt-4 flex-row justify-center">
         {res?.data.data.length === 0 && (
           <div className="flex flex-col w-full justify-center items-center">
             <h1 className="text-xl my-4">No products found</h1>
@@ -79,6 +79,7 @@ const PaginatedViewer: FunctionComponent<PaginatedViewerProps> = (props) => {
 
       <div className="flex w-full justify-center">
         <Pagination
+          layout="navigation"
           currentPage={currentPage}
           onPageChange={(page) => {
             setCurrentPage(page);

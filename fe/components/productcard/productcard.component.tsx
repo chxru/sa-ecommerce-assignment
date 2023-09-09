@@ -13,6 +13,10 @@ const ProductCard: FunctionComponent<ProductProps> = (props) => {
   const addToCard = useCartStore((state) => state.addToCart);
   const ratings = useRef(Math.floor(Math.random() * 5) + 1);
 
+  const itemsAlreadyInCart = cart.filter(
+    (item) => item._id === props.product._id
+  );
+
   const FavouriteBtnClick = async () => {
     const res = await Fetcher.post(`/favourites/`, {
       product: props.product._id,
@@ -111,18 +115,16 @@ const ProductCard: FunctionComponent<ProductProps> = (props) => {
 
             {!!props.product.price && (
               <Button
-                disabled={
-                  cart.find((item) => item._id === props.product._id) !==
-                  undefined
-                }
                 onClick={() => {
                   addToCard(props.product);
                 }}
               >
-                {cart.find((item) => item._id === props.product._id) !==
-                undefined
-                  ? "In the cart"
-                  : "Add to cart"}
+                Add to cart
+                {itemsAlreadyInCart.length > 0 && (
+                  <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">
+                    {itemsAlreadyInCart.length}
+                  </div>
+                )}
               </Button>
             )}
           </div>
