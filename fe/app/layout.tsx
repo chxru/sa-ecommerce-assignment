@@ -6,7 +6,7 @@ import AuthLayout from "@/components/layouts/auth.layout";
 import Topbar from "@/components/navigation/topbar.component";
 import { useUserStore } from "@/store/user.store";
 import { Inter } from "next/font/google";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +17,7 @@ export default function RootLayout({
 }) {
   const router = useRouter();
   const userStore = useUserStore();
+  const path = usePathname();
 
   return (
     <html lang="en">
@@ -28,7 +29,11 @@ export default function RootLayout({
             onSignOut={() => userStore.signOut()}
           />
 
-          <SidebarLayout>{children}</SidebarLayout>
+          {["/login", "/register"].includes(path) ? (
+            children
+          ) : (
+            <SidebarLayout>{children}</SidebarLayout>
+          )}
         </AuthLayout>
       </body>
     </html>

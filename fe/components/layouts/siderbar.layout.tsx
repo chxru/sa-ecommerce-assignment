@@ -1,18 +1,42 @@
-import { FunctionComponent, ReactNode } from "react";
+import { FunctionComponent, ReactNode, useEffect } from "react";
 import useSWR from "swr";
 import Sidebar from "../navigation/sidebar.component";
 import { Fetcher } from "@/util/axios";
 import { ProductCategoriesResponse } from "@saecom/types";
+import { useFavouriteStore } from "@/store/favourite.store";
 
 interface SidebarLayoutProps {
   children: ReactNode;
 }
 
 const SidebarLayout: FunctionComponent<SidebarLayoutProps> = (props) => {
-  const { data: res, isLoading } = useSWR<ProductCategoriesResponse>(
+  const updateFavourites = useFavouriteStore((state) => state.updateFavourites);
+
+  const { data: categories, isLoading } = useSWR<ProductCategoriesResponse>(
     "/products/categories",
-    Fetcher.get
+    Fetcher.get,
+    {
+      revalidateOnFocus: false,
+    }
   );
+
+  const { data: favourites } = useSWR<{ data: string[] }>(
+    "/favourites",
+    Fetcher.get,
+    {
+      revalidateOnFocus: false,
+    }
+  );
+
+  useEffect(() => {
+    if (!updateFavourites) return;
+
+    if (!favourites) return;
+    if (!favourites.data) return;
+    if (!Array.isArray(favourites.data)) return;
+
+    if (favourites) updateFavourites(favourites.data);
+  }, [favourites, updateFavourites]);
 
   return (
     <div className="flex flex-row max-w-6xl mx-auto">
@@ -20,7 +44,7 @@ const SidebarLayout: FunctionComponent<SidebarLayoutProps> = (props) => {
         <Sidebar
           isLoading={isLoading}
           data={
-            res?.data.map((item) => ({
+            categories?.data.map((item) => ({
               name: item.replaceAll("-", " "),
               path: `/category/${item}`,
             })) || []
