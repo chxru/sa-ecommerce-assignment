@@ -27,6 +27,15 @@ const Topbar: FunctionComponent<TopbarProps> = (props) => {
   const favourite = useFavouriteStore((state) => state.favourites);
   const cart = useCartStore((state) => state.cart);
 
+  const getFirstWord = (text:string): string =>{
+    const match = text.match(/^\w+/);
+    if (match) {
+      return match[0];
+    } else {
+      return "";
+    }
+  };
+
   return (
     <div className="w-screen absolute">
       <Navbar fluid rounded className=" max-w-6xl w-full mx-auto z-50 bg-white">
@@ -64,7 +73,7 @@ const Topbar: FunctionComponent<TopbarProps> = (props) => {
             </Button>
 
             {props.username ? (
-              <Dropdown label={"Hey " + props.username}>
+              <Dropdown label={"Hey " + getFirstWord(props.username)}>
                 <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
                 <Dropdown.Item icon={HiCog}>Settings</Dropdown.Item>
                 <Dropdown.Divider />
