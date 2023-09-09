@@ -12,11 +12,20 @@ const LIMIT = 9;
 interface PaginatedViewerProps {
   category?: string;
   random?: boolean;
+  search?: string;
 }
 
 const GenerateURL = (page: number, props: PaginatedViewerProps) => {
   if (props.random) {
     return `/products/random/${LIMIT}`;
+  }
+
+  if (props.search) {
+    if (props.category) {
+      return `products/search/${props.search}/page/${page}/limit/${LIMIT}/category/${props.category}`;
+    }
+
+    return `/products/search/${props.search}/page/${page}/limit/${LIMIT}`;
   }
 
   if (props.category) {
@@ -39,7 +48,7 @@ const PaginatedViewer: FunctionComponent<PaginatedViewerProps> = (props) => {
   );
 
   useEffect(() => {
-    if (!res?.data.metadata.total) {
+    if (!res || !res.data || !res.data.metadata || !res?.data?.metadata.total) {
       return;
     }
 
@@ -57,6 +66,12 @@ const PaginatedViewer: FunctionComponent<PaginatedViewerProps> = (props) => {
   return (
     <>
       <div className="flex flex-wrap mt-4 flex-row">
+        {res?.data.data.length === 0 && (
+          <div className="flex flex-col w-full justify-center items-center">
+            <h1 className="text-xl my-4">No products found</h1>
+          </div>
+        )}
+
         {res?.data.data.map((product) => (
           <ProductCard
             key={product._id}
