@@ -19,6 +19,9 @@ export class User {
 
   @Prop()
   emailVerificationCode: string;
+
+  @Prop()
+  favourites: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -30,4 +30,23 @@ export class UsersService {
   async findOneById(id: string) {
     return this.userModel.findById(id).exec();
   }
+
+  async addFavourite(userId: string, favouriteId: string) {
+    console.log('fav', userId, favouriteId);
+    const user = await this.userModel.findById(userId).exec();
+    console.log('fav user', user);
+    user.favourites.push(favouriteId);
+    return user.save();
+  }
+
+  async removeFavourite(userId: string, favouriteId: string) {
+    const user = await this.userModel.findById(userId).exec();
+    user.favourites = user.favourites.filter((id) => id !== favouriteId);
+    return user.save();
+  }
+
+  async getFavorites(userId: string) {
+    const user = await this.userModel.findById(userId).exec();
+    return user.favourites;
+  }
 }
