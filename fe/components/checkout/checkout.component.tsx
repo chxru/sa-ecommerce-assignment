@@ -62,9 +62,6 @@ const CheckoutSummary: React.FC<CheckoutSummaryProps> = ({
           {cart.reduce((acc, item) => acc + (item.price || 0), 0).toFixed(2)}
         </p>
       </div>
-      <div className="flex justify-center mt-4">
-        <Button className="w-full max-w-sm">Place Order</Button>
-      </div>
     </div>
   );
 };
