@@ -7,9 +7,11 @@ import { useCartStore } from "@/store/cart.store";
 import { useUserStore } from "@/store/user.store";
 import { Fetcher } from "@/util/axios";
 import { IPlaceOrderForm } from "@saecom/types";
+import { useRouter } from "next/navigation";
 import { FunctionComponent } from "react";
 
 const CartPage: FunctionComponent = () => {
+  const router = useRouter();
   const cartStore = useCartStore();
   const userStore = useUserStore();
 
@@ -19,6 +21,11 @@ const CartPage: FunctionComponent = () => {
       ...data,
       products: cartStore.cart,
     });
+
+    if (res.status.toString().startsWith("2")) {
+      cartStore.clearCart();
+      router.push("/cart/confirmed");
+    }
   };
 
   return (
