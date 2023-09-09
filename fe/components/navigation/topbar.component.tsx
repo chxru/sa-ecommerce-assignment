@@ -10,6 +10,8 @@ import {
   HiViewGrid,
 } from "react-icons/hi";
 import SearchBar from "./searchbar.component";
+import { useCartStore } from "@/store/cart.store";
+import { useRouter } from "next/navigation";
 
 interface TopbarProps {
   username?: string;
@@ -18,7 +20,9 @@ interface TopbarProps {
 }
 
 const Topbar: FunctionComponent<TopbarProps> = (props) => {
+  const router = useRouter();
   const [showSearch, setShowSearch] = useState(false);
+  const cart = useCartStore((state) => state.cart);
 
   return (
     <div className="w-screen absolute">
@@ -42,9 +46,13 @@ const Topbar: FunctionComponent<TopbarProps> = (props) => {
               <HiSearch className="mr-2 h-5 w-5" />
             </Button>
 
-            <Button>
+            <Button
+              onClick={() => {
+                router.push("/cart");
+              }}
+            >
               <HiShoppingCart className="mr-2 h-5 w-5" />
-              <p>(0)</p>
+              <p>{cart.length}</p>
             </Button>
 
             {props.username ? (

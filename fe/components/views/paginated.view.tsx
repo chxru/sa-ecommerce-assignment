@@ -73,12 +73,7 @@ const PaginatedViewer: FunctionComponent<PaginatedViewerProps> = (props) => {
         )}
 
         {res?.data.data.map((product) => (
-          <ProductCard
-            key={product._id}
-            deviceName={product.name}
-            price={product.price}
-            productImage={product.image}
-          />
+          <ProductCard key={product._id} product={product} />
         ))}
       </div>
 
