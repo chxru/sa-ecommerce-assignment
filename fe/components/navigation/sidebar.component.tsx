@@ -1,7 +1,8 @@
 "use client";
 
-import { ListGroup } from "flowbite-react";
-import { FunctionComponent } from "react";
+import { Button, ListGroup, Modal } from "flowbite-react";
+import { FunctionComponent, useState } from "react";
+import { HiMenu } from "react-icons/hi";
 
 interface SidebarProps {
   data: { name: string; path: string }[];
@@ -9,7 +10,9 @@ interface SidebarProps {
 }
 
 const Sidebar: FunctionComponent<SidebarProps> = (props) => {
-  return (
+  const [openModal, setOpenModal] = useState<string | undefined>();
+
+  const Content = () => (
     <ListGroup className="max-w-sm">
       {props.isLoading ? (
         <>
@@ -31,6 +34,33 @@ const Sidebar: FunctionComponent<SidebarProps> = (props) => {
         </>
       )}
     </ListGroup>
+  );
+
+  return (
+    <>
+      <Button
+        className="block md:hidden ml-4"
+        onClick={() => {
+          setOpenModal("default");
+        }}
+      >
+        <HiMenu className="mr-2 h-5 w-5" />
+      </Button>
+
+      <div className="hidden md:block">
+        <Content />
+      </div>
+
+      <Modal
+        show={openModal === "default"}
+        onClose={() => setOpenModal(undefined)}
+      >
+        <Modal.Header>Select Category to browse</Modal.Header>
+        <Modal.Body>
+          <Content />
+        </Modal.Body>
+      </Modal>
+    </>
   );
 };
 

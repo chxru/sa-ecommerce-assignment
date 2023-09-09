@@ -32,8 +32,16 @@ export class ProductsService {
     @InjectModel(Product.name) private productModel: Model<ProductDocument>,
   ) {}
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id: string) {
+    const res = await this.productModel.findById(id).exec();
+
+    // inject image url
+    const product = {
+      ...res.toJSON(),
+      image: images[res.category],
+    };
+
+    return product;
   }
 
   async getRandomProducts(n: number) {

@@ -57,4 +57,10 @@ export class ProductsController {
   ) {
     return this.productsService.searchProduct(query, +page, +limit, category);
   }
+
+  @Public()
+  @Get('/:id')
+  findOne(@Param('id') id: string) {
+    return this.productsService.findOne(id);
+  }
 }
