@@ -54,8 +54,6 @@ const Topbar: FunctionComponent<TopbarProps> = (props) => {
               <p>{favourite.length}</p>
             </Button>
 
-            <Button>
-
             <Button
               onClick={() => {
                 router.push("/cart");
