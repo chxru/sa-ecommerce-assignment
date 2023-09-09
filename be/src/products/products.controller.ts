@@ -36,4 +36,25 @@ export class ProductsController {
   ) {
     return this.productsService.paginatedQuery(+page, +limit, category);
   }
+
+  @Public()
+  @Get('search/:query/page/:page/limit/:limit')
+  searchProducts(
+    @Param('query') query: string,
+    @Param('page') page: string,
+    @Param('limit') limit: string,
+  ) {
+    return this.productsService.searchProduct(query, +page, +limit);
+  }
+
+  @Public()
+  @Get('search/:query/page/:page/limit/:limit/category/:category')
+  searchProductsByCategory(
+    @Param('query') query: string,
+    @Param('page') page: string,
+    @Param('limit') limit: string,
+    @Param('category') category: string,
+  ) {
+    return this.productsService.searchProduct(query, +page, +limit, category);
+  }
 }

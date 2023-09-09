@@ -123,4 +123,67 @@ export class ProductsService {
       })),
     };
   }
+
+  async searchProduct(
+    query: string,
+    page: number,
+    limit: number,
+    category?: string,
+  ) {
+    const aggregateQuery: any[] = [
+      {
+        $search: {
+          index: 'product_name_idx',
+          text: {
+            query,
+            path: 'name',
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          price: 1,
+          category: 1,
+        },
+      },
+      {
+        $facet: {
+          metadata: [
+            {
+              $count: 'total',
+            },
+          ],
+          data: [
+            {
+              $skip: (page - 1) * limit,
+            },
+            {
+              $limit: limit,
+            },
+          ],
+        },
+      },
+    ];
+
+    if (category) {
+      // add category filter as the second step
+      aggregateQuery.splice(1, 0, {
+        $match: {
+          category,
+        },
+      });
+    }
+
+    const result = await this.productModel.aggregate(aggregateQuery);
+
+    return {
+      metadata: result[0].metadata[0],
+      data: result[0].data.map((product) => ({
+        ...product,
+        image: images[product?.category],
+      })),
+    };
+  }
 }
