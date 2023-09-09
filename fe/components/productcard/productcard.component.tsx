@@ -13,7 +13,7 @@ const ProductCard: FunctionComponent<ProductProps> = (props) => {
 
   return (
     <div className="w-72 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-2 mb-4 flex flex-col">
-      <a href="#">
+      <a href={"/product/" + props.product._id}>
         <img
           className="p-8 rounded-t-lg"
           src={props.product.image}
@@ -21,7 +21,7 @@ const ProductCard: FunctionComponent<ProductProps> = (props) => {
         />
       </a>
       <div className="px-5 pb-5 flex flex-col justify-between flex-grow">
-        <a href="#">
+        <a href={"/product" + props.product._id}>
           <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
             {props.product.name}
           </h5>
