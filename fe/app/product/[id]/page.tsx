@@ -3,7 +3,7 @@
 import { useCartStore } from "@/store/cart.store";
 import { Fetcher } from "@/util/axios";
 import { IProduct } from "@saecom/types";
-import { Button } from "flowbite-react";
+import { Button, Table } from "flowbite-react";
 import { FunctionComponent } from "react";
 import useSWR from "swr";
 
@@ -49,8 +49,13 @@ const ProductPage: FunctionComponent<ProductPageProps> = (props) => {
         <h1 className="text-4xl font-bold">{data.data.name}</h1>
         <p className="text-2xl font-bold">$ {data.data.price}</p>
 
-        <table className="table-auto mt-8">
-          <tbody>
+        <Table className="mt-8">
+          <Table.Head>
+            <Table.HeadCell>Specification</Table.HeadCell>
+            <Table.HeadCell></Table.HeadCell>
+          </Table.Head>
+
+          <Table.Body className="divide-y">
             {Object.entries(data.data)
               .filter(
                 (p) =>
@@ -60,18 +65,21 @@ const ProductPage: FunctionComponent<ProductPageProps> = (props) => {
                   p[0] !== "_id"
               )
               .map(([key, value]) => (
-                <tr key={key}>
-                  <td className="border px-4 py-2">
+                <Table.Row
+                  key={key}
+                  className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                >
+                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                     {key.split("_").join(" ")}
-                  </td>
-                  <td className="border px-4 py-2">{value}</td>
-                </tr>
+                  </Table.Cell>
+                  <Table.Cell>{value}</Table.Cell>
+                </Table.Row>
               ))}
-          </tbody>
-        </table>
+          </Table.Body>
+        </Table>
 
         <Button
-          className="mt-8"
+          className="mt-16"
           onClick={() => {
             addToCart(data.data);
           }}
