@@ -31,7 +31,7 @@ const Topbar: FunctionComponent<TopbarProps> = (props) => {
     <div className="w-screen absolute">
       <Navbar fluid rounded className=" max-w-6xl w-full mx-auto z-50 bg-white">
         <Navbar.Brand href="/">
-          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white mb-2 md:mb-0">
             SAECOM
           </span>
         </Navbar.Brand>

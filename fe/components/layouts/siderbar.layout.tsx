@@ -39,8 +39,8 @@ const SidebarLayout: FunctionComponent<SidebarLayoutProps> = (props) => {
   }, [favourites, updateFavourites]);
 
   return (
-    <div className="flex flex-row max-w-6xl mx-auto">
-      <div className="w-1/5 mt-24">
+    <div className="flex flex-col md:flex-row max-w-6xl mx-auto">
+      <div className="w-full md:w-1/5 mt-24">
         <Sidebar
           isLoading={isLoading}
           data={
@@ -51,7 +51,7 @@ const SidebarLayout: FunctionComponent<SidebarLayoutProps> = (props) => {
           }
         />
       </div>
-      <div className="w-4/5">{props.children}</div>
+      <div className="w-full md:w-4/5 -mt-16">{props.children}</div>
     </div>
   );
 };
