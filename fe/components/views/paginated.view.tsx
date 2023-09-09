@@ -39,13 +39,23 @@ const PaginatedViewer: FunctionComponent<PaginatedViewerProps> = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const { data: res, isLoading } = useSWR<PaginatedProductQueryResponse>(
+  const {
+    data: res,
+    isLoading,
+    mutate,
+  } = useSWR<PaginatedProductQueryResponse>(
     GenerateURL(currentPage, props),
     Fetcher.get,
     {
       revalidateOnFocus: false,
     }
   );
+
+  useEffect(() => {
+    if (mutate) {
+      mutate();
+    }
+  }, [mutate, currentPage]);
 
   useEffect(() => {
     if (!res || !res.data || !res.data.metadata || !res?.data?.metadata.total) {
